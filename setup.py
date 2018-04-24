@@ -12,7 +12,7 @@ Frp NAT Downloader for Pyhton
 if os.name == "nt":
     scripts = None
     entry_points = {
-        'console_scripts': ['frp.py=frp:_main'],
+        'console_scripts': ['frp=frp:_main'],
     }
 else:
     scripts = ['frp.py']
