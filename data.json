@@ -1,27 +1,73 @@
 {
-  "version":[],
+  "versions":["0.17.0","0.16.1"],
   "servers":[
     {
-      "ip":"127.0.0.1",
-      "port":7000,
-      "token":"abc",
-      "sversion":"0.14.0"
+      "ip_domian" : "frp.nat-cloud.com",
+      "frps_version" : "0.17.0",
+      "bind_addr" : "0.0.0.0",
+      "bind_port" : "7000",
+      "bind_udp_port" : "7001",
+      "kcp_bind_port" : "7000",
+      "vhost_http_port" : "80",
+      "vhost_https_port" : "443",
+      "dashboard_addr" : "0.0.0.0",
+      "dashboard_port" : "7500",
+      "dashboard_user" : "admin",
+      "dashboard_passwd" : "admin",
+      "token" : "12345678",
+      "allow_ports" : "2000-3000,3001,3003,4000-50000",
+      "subdomain_host" : "frps.com",
+      "tcp_mux" : true,
+      "description" : "some words"
     },
     {
-      "ip":"192.168.0.1",
-      "port":7000,
-      "token":"abc",
-      "sversion":"0.14.0"
+      "ip_domian" : "frp.iotserv.com",
+      "frps_version" : "0.16.1",
+      "bind_addr" : "0.0.0.0",
+      "bind_port" : "7000",
+      "bind_udp_port" : "7001",
+      "kcp_bind_port" : "7000",
+      "vhost_http_port" : "80",
+      "vhost_https_port" : "443",
+      "dashboard_addr" : "0.0.0.0",
+      "dashboard_port" : "7500",
+      "dashboard_user" : "admin",
+      "dashboard_passwd" : "admin",
+      "token" : "12345678",
+      "allow_ports" : "2000-3000,3001,3003,4000-50000",
+      "subdomain_host" : "frps.com",
+      "tcp_mux" : true,
+      "description" : "some words"
     }
   ],
-  "fileurl":{
-      "0.13.0":{
-      "win32":"",
-      "win64":""
+  "file_urls":{
+      "0.17.0":{
+      "darwin_amd64":"https://github.com/fatedier/frp/releases/download/v0.17.0/frp_0.17.0_darwin_amd64.tar.gz",
+      "freebsd_386":"https://github.com/fatedier/frp/releases/download/v0.17.0/frp_0.17.0_freebsd_386.tar.gz",
+      "freebsd_amd64":"https://github.com/fatedier/frp/releases/download/v0.17.0/frp_0.17.0_freebsd_amd64.tar.gz",
+      "linux_386":"https://github.com/fatedier/frp/releases/download/v0.17.0/frp_0.17.0_linux_386.tar.gz",
+      "linux_amd64":"https://github.com/fatedier/frp/releases/download/v0.17.0/frp_0.17.0_linux_amd64.tar.gz",
+      "linux_arm":"https://github.com/fatedier/frp/releases/download/v0.17.0/frp_0.17.0_linux_arm.tar.gz",
+      "linux_mips":"https://github.com/fatedier/frp/releases/download/v0.17.0/frp_0.17.0_linux_mips.tar.gz",
+      "linux_mips64":"https://github.com/fatedier/frp/releases/download/v0.17.0/frp_0.17.0_linux_mips64.tar.gz",
+      "linux_mips64le":"https://github.com/fatedier/frp/releases/download/v0.17.0/frp_0.17.0_linux_mips64le.tar.gz",
+      "linux_mipsle":"https://github.com/fatedier/frp/releases/download/v0.17.0/frp_0.17.0_linux_mipsle.tar.gz",
+      "windows_386":"https://github.com/fatedier/frp/releases/download/v0.17.0/frp_0.17.0_windows_386.zip",
+      "windows_amd64":"https://github.com/fatedier/frp/releases/download/v0.17.0/frp_0.17.0_windows_amd64.zip"
     },
-    "0.14.0":{
-      "win32":"",
-      "win64":""
+    "0.16.1":{
+      "darwin_amd64":"https://github.com/fatedier/frp/releases/download/v0.16.1/frp_0.16.1_darwin_amd64.tar.gz",
+      "freebsd_386":"https://github.com/fatedier/frp/releases/download/v0.16.1/frp_0.16.1_freebsd_386.tar.gz",
+      "freebsd_amd64":"https://github.com/fatedier/frp/releases/download/v0.16.1.0/frp_0.16.1_freebsd_amd64.tar.gz",
+      "linux_386":"https://github.com/fatedier/frp/releases/download/v0.16.1/frp_0.16.1_linux_386.tar.gz",
+      "linux_amd64":"https://github.com/fatedier/frp/releases/download/v0.16.1.0/frp_0.16.1_linux_amd64.tar.gz",
+      "linux_arm":"https://github.com/fatedier/frp/releases/download/v0.16.1/frp_0.16.1_linux_arm.tar.gz",
+      "linux_mips":"https://github.com/fatedier/frp/releases/download/v0.16.1/frp_0.16.1_linux_mips.tar.gz",
+      "linux_mips64":"https://github.com/fatedier/frp/releases/download/v0.16.1/frp_0.16.1_linux_mips64.tar.gz",
+      "linux_mips64le":"https://github.com/fatedier/frp/releases/download/v0.16.1/frp_0.16.1_linux_mips64le.tar.gz",
+      "linux_mipsle":"https://github.com/fatedier/frp/releases/download/v0.16.1/frp_0.16.1_linux_mipsle.tar.gz",
+      "windows_386":"https://github.com/fatedier/frp/releases/download/v0.16.1/frp_0.16.1_windows_386.zip",
+      "windows_amd64":"https://github.com/fatedier/frp/releases/download/v0.16.1/frp_0.16.1_windows_amd64.zip"
     }
   }
 }
