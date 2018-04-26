@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __version__ = '0.0.1'
-
+import sys
 PYTHON2 = sys.version_info[0] < 3
 def downloadFile(url,path):
     import os,urllib
@@ -17,6 +17,8 @@ def downloadFile(url,path):
 
 def getJsonObj(url):
     import urllib2,json
+    if url is None:
+        url = ""
     req = urllib2.Request(url)
     res_data = urllib2.urlopen(req)
     res = res_data.read()
@@ -40,26 +42,68 @@ def portOnLine(address,port):
     except:
         return False
 
+def list():
+    print("list")
+    jsonObj = getJsonObj(url=None)
+    print(jsonObj["versions"])
+
+
+def servers():
+    print("servers")
+    jsonObj = getJsonObj(url=None)
+
+def download(path):
+    if path:
+        print("download")
+    else:
+        print("download ./")
+
+def install(path):
+    if path:
+        print("install")
+    else:
+        print("install ./")
+
+def pinfo():
+    print("""
+        =============================
+        Frp NAT Downloader for Pyhton
+        =============================
+
+        pip install frp
+        frp -h
+        -----------------------------
+        src: https://github.com/nat-cloud/frp
+        -----------------------------
+        """)
+
 def main():
     # downloadFile("http://dldir1.qq.com/qqfile/qq/QQ8.9/20026/QQ8.9.exe","./")
     # print(getJsonObj("http://127.0.0.1:8000/ajax/t_erp_aliexpress_online_info_page?perpage=1&page=2"))
     # print(pingIP("www.baidu.com"))
     # print(portOnLine("www.baidu.com",81))
-    pass
+    import argparse
+    parser = argparse.ArgumentParser(description='frp', prog='frp')
+    parser.add_argument('--list', '-l', help='list version', action='store_true')
+    parser.add_argument('--servers', '-s', help='free servers', action='store_true')
+    parser.add_argument('--path', '-p', help='path')
+    parser.add_argument('--download', '-d', help='download program')
+    parser.add_argument('--install', '-i', help='install program')
+    args = parser.parse_args()
+    print(args)
+    if args.list:
+        list()
+    if args.servers:
+        servers()
+    if args.download:
+        download(args.path)
+    if args.install:
+        install(args.path)
+    if not args.list and not args.servers and not args.download and not args.install:
+        pinfo()
 
 def _main():
     main()
-    print("""
-    =============================
-    Frp NAT Downloader for Pyhton
-    =============================
-    
-    pip install frp
-    frp -h
-    -----------------------------
-    src: https://github.com/nat-cloud/frp
-    -----------------------------
-    """)
     
 if __name__ == '__main__':
     _main()
