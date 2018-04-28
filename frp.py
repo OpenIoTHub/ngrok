@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.0.1'
-import sys,os
+import sys
 PYTHON2 = sys.version_info[0] < 3
-
+__version__ = '0.0.8'
 def un_zip(file_name,to_path):
     import zipfile
     zip_file = zipfile.ZipFile(file_name)
