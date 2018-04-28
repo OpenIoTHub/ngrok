@@ -1,14 +1,26 @@
 # -*- coding: utf-8 -*-
 __version__ = '0.0.1'
-import sys
+import sys,os
 PYTHON2 = sys.version_info[0] < 3
-def get_os():
-    import platform
-    return platform.system()
 
-def get_arch():
-    import platform
-    return platform.machine()
+def un_zip(file_name,to_path):
+    import zipfile
+    zip_file = zipfile.ZipFile(file_name)
+    for names in zip_file.namelist():
+        if not to_path:
+            to_path = "./"
+        zip_file.extract(names,to_path)
+    zip_file.close()
+
+def un_tar_gz(from_path,to_path):
+    import tarfile
+    tar = tarfile.open(from_path)
+    names = tar.getnames()
+    for name in names:
+        if not to_path:
+            to_path = "./"
+        tar.extract(name, path=to_path)
+    tar.close()
 
 def downloadFile(url,path):
     import os,urllib
@@ -24,6 +36,12 @@ def downloadFile(url,path):
     filename = url.split("/")[-1]
     local = os.path.join(path,filename)
     urllib.urlretrieve(url,local,Schedule)
+    if "tar.gz" in url:
+        un_tar_gz(filename,None)
+        os.remove(filename)
+    else:
+        un_zip(filename,None)
+        os.remove(filename)
 
 def getJsonObj(url):
     import urllib2,json
@@ -74,24 +92,35 @@ def servers():
             print("ping lost:" + str(ping[0])+"%")
             print("ping max:" + str(int(ping[1])) + "ms")
             print("ping avg:" + str(int(ping[2])) + "ms")
-            if best:
-                if best['pingavg']>int(ping[2]):
+            status = portOnLine(server["ip_domian"], server["bind_port"])
+            if status:
+                print("Frps Status:OnLine")
+                if best:
+                    if best['pingavg'] > int(ping[2]):
+                        best = server
+                        best['pingavg'] = int(ping[2])
+                else:
                     best = server
-                    best['pingavg']=int(ping[2])
+                    best['pingavg'] = int(ping[2])
             else:
-                best = server
-                best['pingavg'] = int(ping[2])
+                print("Frps Status:OffLine")
         else:
             print("ping lost:" + str(ping[0]) + "%")
+            print("Frps Status:OffLine")
+
     print("+******************recommend host******************+")
-    for key in best:
-        if isinstance(best[key], bool):
-            print(key + ":" + str(best[key]).lower())
-        else:
-            print(key + ":" + str(best[key]))
+    if best:
+        for key in best:
+            if isinstance(best[key], bool):
+                print(key + ":" + str(best[key]).lower())
+            else:
+                print(key + ":" + str(best[key]))
+    else:
+        print("+\t\tno online frps\t\t\t+")
     print("+***********************end************************+")
 
 def download(version):
+    url = ""
     jsonObj = getJsonObj(url=None)
     os_arch_list = jsonObj["os_arch"]
     for oa in range(len(os_arch_list)):
@@ -103,14 +132,17 @@ def download(version):
             url = "http://frpdown.duapp.com/frp_%s_%s.zip" % (version, os_arch_list[select])
         else:
             url = "http://frpdown.duapp.com/frp_%s_%s.tar.gz" % (version, os_arch_list[select])
-    else:
+    elif version in getJsonObj(url=None)["github_versions"]:
         if "windows" in os_arch_list[select]:
             url = "https://github.com/fatedier/frp/releases/download/v%s/frp_%s_%s.zip" % (version, version, os_arch_list[select])
         else:
             url = "https://github.com/fatedier/frp/releases/download/v%s/frp_%s_%s.tar.gz" % (version, version, os_arch_list[select])
-    print("start download from:"+url)
-    downloadFile(url,"./")
-    print("download complated!")
+    else:
+        print("######version notFound######")
+    if url:
+        print("start download from:"+url)
+        downloadFile(url,"./")
+        print("download complated!")
 def install(path):
     if path:
         print("install")

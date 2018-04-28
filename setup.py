@@ -21,7 +21,7 @@ else:
 setup(
     name='frp',
     py_modules=['frp'],
-    version='0.0.6',
+    version='0.0.8',
     description='frp NAT.',
     long_description=long_description,
     url='https://github.com/nat-cloud/frp',
@@ -42,7 +42,7 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     tests_require=[],
-    install_requires=[],
+    install_requires=["ping",],
     scripts=scripts,
     entry_points=entry_points,
 )
