@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 PYTHON2 = sys.version_info[0] < 3
-__version__ = '0.0.9'
+__version__ = '0.1.0'
 def un_zip(file_name,to_path):
     import zipfile
     zip_file = zipfile.ZipFile(file_name)
@@ -91,7 +91,7 @@ def servers():
             print("ping lost:" + str(ping[0])+"%")
             print("ping max:" + str(int(ping[1])) + "ms")
             print("ping avg:" + str(int(ping[2])) + "ms")
-            status = portOnLine(server["ip_domian"], server["bind_port"])
+            status = portOnLine(server["ip_domian"], int(server["bind_port"]))
             if status:
                 print("Frps Status:OnLine")
                 if best:
