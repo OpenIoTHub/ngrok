@@ -27,7 +27,7 @@
       "description" : "some words"
     },
     {
-      "ip_domian" : "www.baidu.com",
+      "ip_domian" : "frp.example.com",
       "frps_version" : "0.16.1",
       "bind_addr" : "0.0.0.0",
       "bind_port" : "80",
