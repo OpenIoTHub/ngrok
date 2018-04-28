@@ -27,23 +27,12 @@
       "description" : "some words"
     },
     {
-      "ip_domian" : "frp.example.com",
-      "frps_version" : "0.16.1",
-      "bind_addr" : "0.0.0.0",
-      "bind_port" : "80",
-      "bind_udp_port" : "7001",
-      "kcp_bind_port" : "7000",
-      "vhost_http_port" : "80",
-      "vhost_https_port" : "443",
-      "dashboard_addr" : "0.0.0.0",
-      "dashboard_port" : "7500",
-      "dashboard_user" : "admin",
-      "dashboard_passwd" : "admin",
-      "token" : "12345678",
-      "allow_ports" : "2000-3000,3001,3003,4000-50000",
-      "subdomain_host" : "frps.com",
-      "tcp_mux" : true,
-      "description" : "some words"
+      "ip_domian" : "hk.nat.ee",
+      "bind_port" : "7000",
+      "server_addr" : "hk.nat.ee",
+      "server_port" : "7000",
+      "privilege_token" : "www.nat.ee",
+      "user" : "自定义用户名称"
     }
   ]
 }
