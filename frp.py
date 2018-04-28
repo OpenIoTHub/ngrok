@@ -2,6 +2,14 @@
 __version__ = '0.0.1'
 import sys
 PYTHON2 = sys.version_info[0] < 3
+def get_os():
+    import platform
+    return platform.system()
+
+def get_arch():
+    import platform
+    return platform.machine()
+
 def downloadFile(url,path):
     import os,urllib
     def Schedule(a, b, c):
@@ -11,6 +19,8 @@ def downloadFile(url,path):
         if per > 100:
             per = 100
         print('%.2f% %' % per)
+    if path is None:
+        path = "./"
     filename = url.split("/")[-1]
     local = os.path.join(path,filename)
     urllib.urlretrieve(url,local,Schedule)
@@ -18,7 +28,7 @@ def downloadFile(url,path):
 def getJsonObj(url):
     import urllib2,json
     if url is None:
-        url = ""
+        url = "https://raw.githubusercontent.com/nat-cloud/frp/master/data.json"
     req = urllib2.Request(url)
     res_data = urllib2.urlopen(req)
     res = res_data.read()
@@ -45,19 +55,33 @@ def portOnLine(address,port):
 def list():
     print("list")
     jsonObj = getJsonObj(url=None)
-    print(jsonObj["versions"])
+    print(jsonObj["github_versions"])
 
 
 def servers():
     print("servers")
     jsonObj = getJsonObj(url=None)
+    print(jsonObj["servers"])
 
-def download(path):
-    if path:
-        print("download")
+def download(version):
+    jsonObj = getJsonObj(url=None)
+    os_arch_list = jsonObj["os_arch"]
+    for oa in range(len(os_arch_list)):
+        print(str(oa)+":"+os_arch_list[oa])
+    select = input("please input what you want download:")
+    print("you selected:"+os_arch_list[select])
+    if version in getJsonObj(url=None)["versions"]:
+        if "windows" in os_arch_list[select]:
+            url = "http://frpdown.duapp.com/frp_%s_%s.zip" % (version, os_arch_list[select])
+        else:
+            url = "http://frpdown.duapp.com/frp_%s_%s.tar.gz" % (version, os_arch_list[select])
     else:
-        print("download ./")
-
+        if "windows" in os_arch_list[select]:
+            url = "https://github.com/fatedier/frp/releases/download/v%s/frp_%s_%s.zip" % (version, version, os_arch_list[select])
+        else:
+            url = "https://github.com/fatedier/frp/releases/download/v%s/frp_%s_%s.tar.gz" % (version, version, os_arch_list[select])
+    print("start download from:"+url)
+    downloadFile(url,"./")
 def install(path):
     if path:
         print("install")
@@ -96,7 +120,7 @@ def main():
     if args.servers:
         servers()
     if args.download:
-        download(args.path)
+        download(args.download)
     if args.install:
         install(args.path)
     if not args.list and not args.servers and not args.download and not args.install:
