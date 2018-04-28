@@ -1,5 +1,10 @@
 {
   "versions":["0.17.0","0.16.1"],
+  "os_arch":[
+    "darwin_amd64", "freebsd_386","freebsd_amd64","linux_386","linux_amd64","linux_arm",
+  "linux_mips","linux_mips64","linux_mips64le","linux_mipsle","windows_386","windows_amd64"
+  ],
+
   "servers":[
     {
       "ip_domian" : "frp.nat-cloud.com",
