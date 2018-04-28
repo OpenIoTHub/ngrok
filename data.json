@@ -32,7 +32,7 @@
       "server_addr" : "hk.nat.ee",
       "server_port" : "7000",
       "privilege_token" : "www.nat.ee",
-      "user" : "自定义用户名称"
+      "user" : "your user setting"
     }
   ]
 }
