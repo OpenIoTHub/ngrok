@@ -53,15 +53,43 @@ def portOnLine(address,port):
         return False
 
 def list():
-    print("list")
+    print(u"当前可用的frp版本：")
     jsonObj = getJsonObj(url=None)
     print(jsonObj["github_versions"])
 
 
 def servers():
-    print("servers")
+    print("lsit servers:")
     jsonObj = getJsonObj(url=None)
-    print(jsonObj["servers"])
+    best = {}
+    for server in jsonObj["servers"]:
+        print("+-------------------------------------------------------+")
+        for key in server:
+            if isinstance(server[key],bool):
+                print(key+":"+str(server[key]).lower())
+            else:
+                print(key + ":" + str(server[key]))
+        ping = pingIP(server["ip_domian"])
+        if ping[1]:
+            print("ping lost:" + str(ping[0])+"%")
+            print("ping max:" + str(int(ping[1])) + "ms")
+            print("ping avg:" + str(int(ping[2])) + "ms")
+            if best:
+                if best['pingavg']>int(ping[2]):
+                    best = server
+                    best['pingavg']=int(ping[2])
+            else:
+                best = server
+                best['pingavg'] = int(ping[2])
+        else:
+            print("ping lost:" + str(ping[0]) + "%")
+    print("+******************recommend host******************+")
+    for key in best:
+        if isinstance(best[key], bool):
+            print(key + ":" + str(best[key]).lower())
+        else:
+            print(key + ":" + str(best[key]))
+    print("+***********************end************************+")
 
 def download(version):
     jsonObj = getJsonObj(url=None)
@@ -82,6 +110,7 @@ def download(version):
             url = "https://github.com/fatedier/frp/releases/download/v%s/frp_%s_%s.tar.gz" % (version, version, os_arch_list[select])
     print("start download from:"+url)
     downloadFile(url,"./")
+    print("download complated!")
 def install(path):
     if path:
         print("install")
@@ -110,9 +139,9 @@ def main():
     parser = argparse.ArgumentParser(description='frp', prog='frp')
     parser.add_argument('--list', '-l', help='list version', action='store_true')
     parser.add_argument('--servers', '-s', help='free servers', action='store_true')
-    parser.add_argument('--path', '-p', help='path')
+    # parser.add_argument('--path', '-p', help='path')
     parser.add_argument('--download', '-d', help='download program')
-    parser.add_argument('--install', '-i', help='install program')
+    # parser.add_argument('--install', '-i', help='install program')
     args = parser.parse_args()
     print(args)
     if args.list:
@@ -121,9 +150,9 @@ def main():
         servers()
     if args.download:
         download(args.download)
-    if args.install:
-        install(args.path)
-    if not args.list and not args.servers and not args.download and not args.install:
+    # if args.install:
+    #     install(args.path)
+    if not args.list and not args.servers and not args.download:
         pinfo()
 
 def _main():
