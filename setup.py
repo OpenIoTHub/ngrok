@@ -25,15 +25,9 @@ long_description = """
 Frp NAT Downloader for Pyhton
 ==========
 """
-if os.name == "nt":
-    scripts = None
-    entry_points = {
+entry_points = {
         'console_scripts': ['frp=frp:_main'],
     }
-else:
-    scripts = ['frp.py']
-    entry_points = None
-
 setup(
     name='frp',
     py_modules=['frp'],
@@ -59,6 +53,6 @@ setup(
     ],
     tests_require=[],
     install_requires=["ping",],
-    scripts=scripts,
+    scripts=None,
     entry_points=entry_points,
 )

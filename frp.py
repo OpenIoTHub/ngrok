@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
 import sys
 PYTHON2 = sys.version_info[0] < 3
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 def un_zip(file_name,to_path):
     import zipfile
     zip_file = zipfile.ZipFile(file_name)
@@ -24,8 +24,6 @@ def un_tar_gz(from_path,to_path):
 def downloadFile(url,path):
     import os,urllib
     def Schedule(a, b, c):
-        '''a:已经下载的数据块b:数据块的大小c:远程文件的大小
-        '''
         per = 100.0 * a * b / c
         if per > 100:
             per = 100
@@ -54,8 +52,6 @@ def getJsonObj(url):
 def pingIP(ip):
     import ping
     result = ping.quiet_ping(ip, timeout=2, count=10, psize=64)
-    #return:(丢包率,最大延迟,平均延迟) eg:(10, 15.000104904174805, 13.888915379842123)
-    #print(result)
     return result
 
 def portOnLine(address,port):
@@ -70,7 +66,7 @@ def portOnLine(address,port):
         return False
 
 def list():
-    print(u"当前可用的frp版本：")
+    print("frp versions:")
     jsonObj = getJsonObj(url=None)
     print(jsonObj["github_versions"])
 
