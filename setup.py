@@ -4,6 +4,10 @@ from __future__ import division, print_function
 import os
 
 from setuptools import setup
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 def read(*names, **kwargs):
     import io
     with io.open(
@@ -21,11 +25,7 @@ def find_version(*file_paths):
     if version_match:
         return version_match.group(1)
     raise RuntimeError("Unable to find version string.")
-long_description = """
-==========
-Ngrok NAT Downloader for Pyhton
-==========
-"""
+
 entry_points = {
         'console_scripts': ['ngrok=ngrok:_main'],
     }
