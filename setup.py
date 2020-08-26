@@ -23,19 +23,19 @@ def find_version(*file_paths):
     raise RuntimeError("Unable to find version string.")
 long_description = """
 ==========
-Frp NAT Downloader for Pyhton
+Ngrok NAT Downloader for Pyhton
 ==========
 """
 entry_points = {
-        'console_scripts': ['frp=frp:_main'],
+        'console_scripts': ['ngrok=ngrok:_main'],
     }
 setup(
-    name='frp',
-    py_modules=['frp'],
-    version=find_version("frp.py"),
-    description='frp NAT.',
+    name='ngrok',
+    py_modules=['ngrok'],
+    version=find_version("ngrok.py"),
+    description='ngrok NAT.',
     long_description=long_description,
-    url='https://github.com/nat-cloud/frp',
+    url='https://github.com/OpenIoTHub/ngrok',
     author='Farry',
     author_email='yu@iotserv.com',
     license='MIT',

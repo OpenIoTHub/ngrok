@@ -43,7 +43,7 @@ def downloadFile(url,path):
 def getJsonObj(url):
     import urllib2,json
     if url is None:
-        url = "https://raw.githubusercontent.com/nat-cloud/frp/master/data.json"
+        url = "https://raw.githubusercontent.com/OpenIoTHub/ngrok/master/data.json"
     req = urllib2.Request(url)
     res_data = urllib2.urlopen(req)
     res = res_data.read()
@@ -66,7 +66,7 @@ def portOnLine(address,port):
         return False
 
 def list():
-    print("frp versions:")
+    print("ngrok versions:")
     jsonObj = getJsonObj(url=None)
     print(jsonObj["github_versions"])
 
@@ -89,7 +89,7 @@ def servers():
             print("ping avg:" + str(int(ping[2])) + "ms")
             status = portOnLine(server["ip_domian"], int(server["bind_port"]))
             if status:
-                print("Frps Status:OnLine")
+                print("ngrok Status:OnLine")
                 if best:
                     if best['pingavg'] > int(ping[2]):
                         best = server
@@ -98,10 +98,10 @@ def servers():
                     best = server
                     best['pingavg'] = int(ping[2])
             else:
-                print("Frps Status:OffLine")
+                print("ngrok Status:OffLine")
         else:
             print("ping lost:" + str(ping[0]) + "%")
-            print("Frps Status:OffLine")
+            print("ngrok Status:OffLine")
 
     print("+******************recommend host******************+")
     if best:
@@ -111,7 +111,7 @@ def servers():
             else:
                 print(key + ":" + str(best[key]))
     else:
-        print("+\t\tno online frps\t\t\t+")
+        print("+\t\tno online ngrok\t\t\t+")
     print("+***********************end************************+")
 
 def download(version):
@@ -122,18 +122,10 @@ def download(version):
         print(str(oa)+":"+os_arch_list[oa])
     select = input("please input what you want download:")
     print("you selected:"+os_arch_list[select])
-    if version in getJsonObj(url=None)["versions"]:
-        if "windows" in os_arch_list[select]:
-            url = "http://frpdown.duapp.com/frp_%s_%s.zip" % (version, os_arch_list[select])
-        else:
-            url = "http://frpdown.duapp.com/frp_%s_%s.tar.gz" % (version, os_arch_list[select])
-    elif version in getJsonObj(url=None)["github_versions"]:
-        if "windows" in os_arch_list[select]:
-            url = "https://github.com/fatedier/frp/releases/download/v%s/frp_%s_%s.zip" % (version, version, os_arch_list[select])
-        else:
-            url = "https://github.com/fatedier/frp/releases/download/v%s/frp_%s_%s.tar.gz" % (version, version, os_arch_list[select])
+    if "windows" in os_arch_list[select]:
+        url = "https://github.com/fatedier/frp/releases/download/v%s/frp_%s_%s.zip" % (version, version, os_arch_list[select])
     else:
-        print("######version notFound######")
+        url = "https://github.com/fatedier/frp/releases/download/v%s/frp_%s_%s.tar.gz" % (version, version, os_arch_list[select])
     if url:
         print("start download from:"+url)
         downloadFile(url,"./")
@@ -147,13 +139,13 @@ def install(path):
 def pinfo():
     print("""
         =============================
-        Frp NAT Downloader for Pyhton
+        Ngrok NAT Downloader for Pyhton
         =============================
 
-        pip install frp
-        frp -h
+        pip install ngrok
+        ngrok -h
         -----------------------------
-        src: https://github.com/nat-cloud/frp
+        src: https://github.com/OpenIoTHub/ngrok
         -----------------------------
         """)
 
@@ -163,7 +155,7 @@ def main():
     # print(pingIP("www.baidu.com"))
     # print(portOnLine("www.baidu.com",81))
     import argparse
-    parser = argparse.ArgumentParser(description='frp', prog='frp')
+    parser = argparse.ArgumentParser(description='ngrok', prog='ngrok')
     parser.add_argument('--list', '-l', help='list version', action='store_true')
     parser.add_argument('--servers', '-s', help='free servers', action='store_true')
     # parser.add_argument('--path', '-p', help='path')

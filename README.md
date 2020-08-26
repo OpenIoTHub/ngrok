@@ -1,2 +1,2 @@
-# frp
-Frp NAT Downloader
+# Ngrok
+Ngrok NAT Downloader
