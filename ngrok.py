@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
 PYTHON2 = sys.version_info[0] < 3
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 def un_zip(file_name,to_path):
     import zipfile
     zip_file = zipfile.ZipFile(file_name)
